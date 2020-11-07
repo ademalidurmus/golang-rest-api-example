@@ -1,0 +1,31 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: docker
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      PGDATA: /var/lib/postgresql/data/storage
+    volumes:
+      - ./data/storage:/var/lib/postgresql/data/storage
+      - ./data/config:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+  app:
+    build: .
+    command: ['./wait-for-it.sh', 'db:5432', '--', 'go', 'run', 'main.go']
+    environment:
+      APP_DB_HOST: db
+      APP_DB_PORT: 5432
+      APP_DB_NAME: docker
+      APP_DB_USER: docker
+      APP_DB_PASS: docker
+    volumes:
+      - ./app:/go/src/app
+    ports:
+      - 80:8080
+    depends_on:
+      - db
+    links:
+      - db

@@ -24,5 +24,5 @@ If you want to real time build when you are coding:
 ```
 brew install watchexec
 docker-compose up -d
-watchexec --restart --exts "go" --watch . "docker-compose restart app"
+watchexec --restart --exts "go" --watch . "docker-compose build app"
 ```

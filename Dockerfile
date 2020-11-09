@@ -1,7 +1,20 @@
-FROM golang:1.15
+FROM golang:1.15 AS builder
+WORKDIR /app
 
-RUN mkdir -p /go/src/app
-WORKDIR /go/src/app
-ADD ./app /go/src/app
+COPY go.mod .
+COPY go.sum .
+RUN go mod download
 
-RUN go get -v
+COPY ./cmd ./cmd
+COPY ./internal ./internal
+
+RUN mkdir store
+RUN CGO_ENABLED=0 GOOS=linux go build -a -ldflags '-w -extldflags "-static"' ./cmd/golang-rest-api-example
+
+FROM scratch
+
+WORKDIR /app
+ENTRYPOINT ["/app/golang-rest-api-example"]
+
+COPY --from=builder /app/golang-rest-api-example /app/golang-rest-api-example
+COPY --from=builder /app/store /app/store

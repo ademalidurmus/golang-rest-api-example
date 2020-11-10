@@ -5,13 +5,14 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"fmt"
 	"os"
 	"strconv"
 	"time"
 
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
+
+	"github.com/ademalidurmus/golang-rest-api-example/internal/database"
 )
 
 type db struct {
@@ -34,14 +35,11 @@ type error struct {
 }
 
 func main() {
-	connStr := fmt.Sprintf(
-		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		os.Getenv("APP_DB_HOST"), os.Getenv("APP_DB_PORT"), os.Getenv("APP_DB_USER"), os.Getenv("APP_DB_PASS"), os.Getenv("APP_DB_NAME"))
-	conn, err := sql.Open("postgres", connStr)
+	conn, err := database.DBConn(os.Getenv("APP_DB_HOST"), os.Getenv("APP_DB_PORT"), os.Getenv("APP_DB_USER"), os.Getenv("APP_DB_PASS"), os.Getenv("APP_DB_NAME"))
+
 	if err != nil {
 		panic(err)
 	}
-	defer conn.Close()
 
 	db := &db{conn: conn}
 

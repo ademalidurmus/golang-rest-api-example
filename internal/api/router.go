@@ -38,6 +38,8 @@ func (r *Router) initRoutes() {
 	r.router.HandleFunc("/posts/{id:[0-9]+}", postAPI.ReadPost()).Methods(http.MethodGet)
 	r.router.HandleFunc("/posts/{id:[0-9]+}", postAPI.UpdatePost()).Methods(http.MethodPut)
 	r.router.HandleFunc("/posts/{id:[0-9]+}", postAPI.DeletePost()).Methods(http.MethodDelete)
+
+	r.router.Use(XSSSecurityMiddleware)
 }
 
 // InitPostAPI ..

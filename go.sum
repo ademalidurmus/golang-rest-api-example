@@ -1,3 +1,5 @@
+github.com/ademalidurmus/xsscleaner v0.1.0 h1:/+NewVnhXwqGctGOCfK5GqMHkVEFcAIO3NWYWtD4bYc=
+github.com/ademalidurmus/xsscleaner v0.1.0/go.mod h1:yZLlJQxgEnHuX8BOfK9grkFHAUmTiQWQEsBe1Vr5hns=
 github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
 github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
 github.com/lib/pq v1.8.0 h1:9xohqzkUwzR4Ga4ivdTcawVS89YSDVxXMa3xJX3cGzg=

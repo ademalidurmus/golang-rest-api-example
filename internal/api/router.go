@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"net/http"
 
+	"github.com/ademalidurmus/xsscleaner"
 	"github.com/gorilla/mux"
 
 	"github.com/ademalidurmus/golang-rest-api-example/internal/app"
@@ -42,7 +43,7 @@ func (r *Router) initRoutes() {
 	peopleAPI := InitPeopleAPI()
 	r.router.HandleFunc("/people/_encrypt", peopleAPI.Encrypt()).Methods(http.MethodPost)
 
-	r.router.Use(XSSSecurityMiddleware)
+	r.router.Use(xsscleaner.Middleware)
 }
 
 // InitPostAPI ..
